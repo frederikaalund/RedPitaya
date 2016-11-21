@@ -1,0 +1,8 @@
+source "$BR2_EXTERNAL_SBT_AQUA_PATH/package/python-aiohttp/Config.in"
+source "$BR2_EXTERNAL_SBT_AQUA_PATH/package/python-async_timeout/Config.in"
+source "$BR2_EXTERNAL_SBT_AQUA_PATH/package/python-chardet/Config.in"
+source "$BR2_EXTERNAL_SBT_AQUA_PATH/package/python-multidict/Config.in"
+source "$BR2_EXTERNAL_SBT_AQUA_PATH/package/python-pympler/Config.in"
+source "$BR2_EXTERNAL_SBT_AQUA_PATH/package/python-rxpy/Config.in"
+source "$BR2_EXTERNAL_SBT_AQUA_PATH/package/python-yarl/Config.in"
+source "$BR2_EXTERNAL_SBT_AQUA_PATH/package/rsyslog-user/Config.in"

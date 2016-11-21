@@ -1,0 +1,79 @@
+#!/bin/sh
+
+echo "Starting rcS..."
+
+if [ -r /etc/default/rcS ]
+then
+	. /etc/default/rcS
+else
+    echo "/etc/default/rcS not found."
+fi
+
+echo "++ Mounting filesystems"
+mkdir -p /dev/pts
+mount -a
+
+# Check if SD card mounted, if not wait and try again
+if ! grep -qs $PATH_SD /proc/mounts; then
+	sleep 1
+	mount -a
+fi
+
+# Add SSH keys
+cat $PATH_SD/authorized_keys >> /root/.ssh/authorized_keys
+
+# Fix keys for SHH
+# Note that the keys are copied (and not symlinked from the overlay) since
+# the SD card (where $PATH_SD points to) is formatted using FAT32 which doesn't
+# allow for individual file permissions.
+cp $PATH_SD/etc/ssh/* /etc/ssh
+chmod 600 `find /etc/ssh/ -name ssh_host_\*`
+
+# Fix permissions for monitrc
+chmod 700 /etc/monitrc
+
+# Override the /etc/hosts file with the actual hostname (found on the SD card).
+printf "127.0.0.1\tlocalhost\n127.0.1.1\t%s\n" $(cat /etc/hostname) > /etc/hosts
+
+# Create interfaces link
+ln -s $PATH_SD/etc/network/interfaces /etc/network/interfaces
+
+echo "++ Running all startup scripts"
+# Run init scripts that require date synchronization in their own subprocess
+# so that they do not block.
+nohup sh rcS-datesync > /dev/null &
+
+# Start all init scripts in /etc/init.d
+# executing them in numerical order.
+#
+for i in /etc/init.d/S??* ;do
+
+     # Ignore dangling symlinks (if any).
+     [ ! -f "$i" ] && continue
+
+     case "$i" in
+        *.sh)
+            # Source shell script for speed.
+            (
+                trap - INT QUIT TSTP
+                set start
+                . $i
+            )
+            ;;
+        *)
+            # No sh extension, so fork subprocess.
+            $i start
+            ;;
+    esac
+done
+
+# Start user rcS script from SD card
+OPT_RCS=$PATH_SD/etc/init.d/rcS
+echo "Running user script from SD card ..."
+if [ -f $OPT_RCS ]
+then
+    source $OPT_RCS
+else
+    echo "$OPT_RCS not found."
+fi
+

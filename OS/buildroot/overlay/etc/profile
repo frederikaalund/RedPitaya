@@ -1,0 +1,22 @@
+export PATH_SD=/opt
+export PATH=/sbin:/usr/sbin:/bin:/usr/bin:$PATH_SD/sbin:$PATH_SD/bin
+export LD_LIBRARY_PATH=$PATH_SD/lib
+
+export USER=`id -un`
+export LOGNAME=$USER
+export HOSTNAME=`/bin/hostname`
+export HISTSIZE=1000
+export HISTFILESIZE=1000
+export PAGER='/usr/bin/less '
+export EDITOR='/bin/vi'
+export INPUTRC=/etc/inputrc
+
+export PS1="\e[1;34m$USER@$HOSTNAME\e[m$ "
+
+# Aliases
+alias ll='ls -al'
+alias df='df -h'
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+

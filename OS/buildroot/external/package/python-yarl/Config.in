@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_YARL
+	bool "python-yarl"
+	help
+	  Yet another URL library
+
+	  http://pythonhosted.org/yarl/
+

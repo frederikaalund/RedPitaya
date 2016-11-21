@@ -1,0 +1,62 @@
+#
+# $Id: Makefile 1283 2014-03-01 12:01:39Z ales.bardorfer $
+#
+# Red Pitaya Ramdisk (root filesystem) Makefile
+#
+
+# Where to get buildroot & which version
+B_SERVER=http://buildroot.uclibc.org/downloads
+B_VERSION=2016.05
+#B_DIR=buildroot-$(B_VERSION)
+B_DIR=buildroot
+B_ARCHIVE=$(B_DIR).tar.gz
+B_DOWNLOAD=$(B_SERVER)/$(B_ARCHIVE)
+UIMAGE=$(B_DIR)/output/images/rootfs.cpio.uboot
+
+INSTALL_DIR ?= .
+VERSION ?= 0.00-0000
+REVISION ?= devbuild
+HOST ?= rp
+
+all: $(UIMAGE)
+
+ifeq ($(CROSS_COMPILE),arm-xilinx-linux-gnueabi-)
+$(error Xilinx toolset is unsupported. Please use the Linaro toolset.)
+else ifeq ($(CROSS_COMPILE),arm-linux-gnueabihf-)
+$(B_DIR)/.config: config.armhf
+	cp $< $@
+else ifndef CROSS_COMPILE
+$(error CROSS_COMPILE must be defined)
+endif
+
+ifndef TOOLCHAIN_PATH
+$(error TOOLCHAIN_PATH must be defined)
+endif
+
+$(UIMAGE): $(B_DIR) overlay $(B_DIR)/.config
+	rm -f $(B_DIR)/output/target/etc/hostname
+	rm -f $(B_DIR)/output/target/etc/network/interfaces
+	$(MAKE) -C $(B_DIR) BR2_EXTERNAL=../external
+
+$(B_DIR):
+	#wget $(B_DOWNLOAD)
+	#tar xfz $(B_ARCHIVE)
+	#git clone https://github.com/buildroot/buildroot.git
+	git clone https://github.com/frederikaalund/buildroot.git
+
+install: $(UIMAGE)
+	mkdir -p $(INSTALL_DIR)
+	cp $(UIMAGE) $(INSTALL_DIR)/uramdisk.image.gz
+
+install-remote: install
+	ssh $(HOST) $(REDPITAYA_REMOTE_SD_FOLDER)/sbin/rw
+	scp uramdisk.image.gz $(HOST):$(REDPITAYA_REMOTE_SD_FOLDER)
+
+clean:
+	-$(MAKE) -C $(B_DIR) clean
+	rm *~ -f
+
+mrproper:
+	-rm -rf $(B_DIR) $(B_ARCHIVE)
+	-rm *~ -f
+

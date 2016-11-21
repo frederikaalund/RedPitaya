@@ -1,0 +1,10 @@
+config BR2_PACKAGE_PYTHON_AIOHTTP
+	bool "python-aiohttp"
+	select BR2_PACKAGE_PYTHON_ASYNC_TIMEOUT
+	select BR2_PACKAGE_PYTHON_CHARDET
+	select BR2_PACKAGE_PYTHON_MULTIDICT
+	help
+	  HTTP client/server for asyncio (PEP 3156).
+
+	  https://aiohttp.readthedocs.io/en/stable/
+
