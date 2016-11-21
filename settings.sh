@@ -3,18 +3,21 @@
 ################################################################################
 
 . /opt/Xilinx/Vivado/2016.2/settings64.sh
+. /opt/Xilinx/SDK/2016.2/settings64.sh
 
 ################################################################################
 # setup cross compiler toolchain
 ################################################################################
 
+export TOOLCHAIN_PATH=/opt/gcc-linaro-6.1.1-2016.08-x86_64_arm-linux-gnueabihf
+export PATH=$PATH:$TOOLCHAIN_PATH/bin
 export CROSS_COMPILE=arm-linux-gnueabihf-
 
 ################################################################################
 # setup download cache directory, to avoid downloads
 ################################################################################
 
-#export DL=dl
+export DL=dl
 
 ################################################################################
 # common make procedure, should not be run by this script
