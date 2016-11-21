@@ -1,3 +1,7 @@
+/build
+/dl
+/tmp
+*.swp
 # Object files
 *.o
 *.ko
