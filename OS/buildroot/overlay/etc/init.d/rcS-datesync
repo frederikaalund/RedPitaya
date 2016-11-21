@@ -1,0 +1,26 @@
+#!/bin/sh
+
+synchronize() {
+	echo -n "Waiting for date synchronization: "
+	wait_cycles=0
+	max_wait_cycles=10
+	while [[ $(date +%Y) == 1970 && $wait_cycles -lt $max_wait_cycles ]]; do
+		sleep 0.5
+		wait_cycles=`expr $wait_cycles + 1`
+	done
+	if [ $wait_cycles != $max_wait_cycles ]; then
+		echo "OK"
+	else
+		echo "FAILED"
+	fi
+}
+
+synchronize
+
+for i in /opt/test/D??*;do
+	# Ignore dangling symlinks (if any).
+	[ ! -f "$i" ] && continue
+
+	$i start
+done
+

@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_PYMPLER
+	bool "python-pympler"
+	help
+	  A development tool to measure, monitor and
+	  analyze the memory behavior of Python objects.
+
+	  http://pythonhosted.org/Pympler/
+

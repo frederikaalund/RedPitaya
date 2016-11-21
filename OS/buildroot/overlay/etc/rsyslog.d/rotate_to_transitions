@@ -1,0 +1,2 @@
+mv -f /opt/to_transitions.log /opt/to_transitions.log.1
+

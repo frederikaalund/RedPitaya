@@ -1,0 +1,9 @@
+config BR2_PACKAGE_PYTHON_RXPY
+	bool "python-rxpy"
+	help
+	  A library for composing asynchronous and event-based
+	  programs using observable collections and LINQ-style
+	  query operators in Python.
+
+	  https://github.com/ReactiveX/RxPY
+
