@@ -50,7 +50,7 @@ case "$1" in
 			# Set-up links to proper files
 			ln -sf $PATH_SD/etc/network/interfaces /etc/network/interfaces
 
-			if [ -e $PATH_SD/wpa_supplicant.conf ]
+			if [ -e $PATH_SD/etc/network/wpa_supplicant.conf ]
 			then
 			sleep 1; # Allow some time for the USB WiFi device to be detected.
 			ifup wlan0
