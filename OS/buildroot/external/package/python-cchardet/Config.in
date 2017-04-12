@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_CCHARDET
+	bool "python-cchardet"
+	help
+	  cChardet is high speed universal character encoding detector. - binding to uchardet.
+
+	  https://github.com/PyYoshi/cChardet
+
