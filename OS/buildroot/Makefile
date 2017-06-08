@@ -6,7 +6,7 @@
 
 # Where to get buildroot & which version
 B_SERVER=http://buildroot.uclibc.org/downloads
-B_VERSION=2017.02
+B_VERSION=2017.05
 B_DIR=buildroot-$(B_VERSION)
 #B_DIR=buildroot
 B_ARCHIVE=$(B_DIR).tar.gz
@@ -41,6 +41,7 @@ $(UIMAGE): $(B_DIR) overlay $(B_DIR)/.config
 $(B_DIR):
 	wget $(B_DOWNLOAD)
 	tar xfz $(B_ARCHIVE)
+	ln -s $(B_DIR) buildroot
 	#git clone https://github.com/buildroot/buildroot.git
 	#git clone https://github.com/frederikaalund/buildroot.git
 
