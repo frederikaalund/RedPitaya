@@ -12,10 +12,10 @@ B_DIR=buildroot-$(B_VERSION)
 B_ARCHIVE=$(B_DIR).tar.gz
 B_DOWNLOAD=$(B_SERVER)/$(B_ARCHIVE)
 UIMAGE=$(B_DIR)/output/images/rootfs.cpio.uboot
+SBTOS_VERSION=2017.06.01
+OSRELEASE=overlay/etc/os-release
 
 INSTALL_DIR ?= .
-VERSION ?= 0.00-0000
-REVISION ?= devbuild
 HOST ?= rp
 
 all: $(UIMAGE)
@@ -33,7 +33,7 @@ ifndef TOOLCHAIN_PATH
 $(error TOOLCHAIN_PATH must be defined)
 endif
 
-$(UIMAGE): $(B_DIR) overlay $(B_DIR)/.config
+$(UIMAGE): $(B_DIR) overlay $(B_DIR)/.config $(OSRELEASE)
 	rm -f $(B_DIR)/output/target/etc/hostname
 	rm -f $(B_DIR)/output/target/etc/network/interfaces
 	$(MAKE) -C $(B_DIR) BR2_EXTERNAL=../external
@@ -60,4 +60,15 @@ clean:
 mrproper:
 	-rm -rf $(B_DIR) $(B_ARCHIVE)
 	-rm *~ -f
+
+$(OSRELEASE):
+	( \
+		echo "NAME=sbtOS"; \
+		echo "VERSION=$(SBTOS_VERSION)"; \
+		echo "ID=sbtos"; \
+		echo "VERSION_ID=$(SBTOS_VERSION)"; \
+		echo "PRETTY_NAME=\"sbtOS $(SBTOS_VERSION)\"" \
+	) > $@
+
+.PHONY: clean mrproper $(OSRELEASE)
 
