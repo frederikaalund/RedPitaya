@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RSYSLOG_USER_VERSION = 8.19.0
+RSYSLOG_USER_VERSION = 8.22.0
 RSYSLOG_USER_SOURCE = rsyslog-$(RSYSLOG_USER_VERSION).tar.gz
 RSYSLOG_USER_SITE = http://rsyslog.com/files/download/rsyslog
 RSYSLOG_USER_LICENSE = GPLv3, LGPLv3, Apache-2.0
