@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_DISTRO
+	bool "python-distro"
+	help
+	  A much more elaborate, renewed alternative implementation for Python's
+	  platform.linux_distribution().
+
+	  http://distro.readthedocs.io/
+
