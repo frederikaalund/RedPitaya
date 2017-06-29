@@ -9,7 +9,7 @@
 # setup cross compiler toolchain
 ################################################################################
 
-export TOOLCHAIN_PATH=/opt/gcc-linaro-6.3.1-2017.02-x86_64_arm-linux-gnueabihf
+export TOOLCHAIN_PATH=/opt/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf
 export PATH=$PATH:$TOOLCHAIN_PATH/bin
 export CROSS_COMPILE=arm-linux-gnueabihf-
 
