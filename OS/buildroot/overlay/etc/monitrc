@@ -28,8 +28,8 @@ check process dash
         start program = "/opt/etc/init.d/Adash start"
         stop program  = "/opt/etc/init.d/Adash stop"
 
-check process vault
-        matching "python.*vault"
-        start program = "/opt/etc/init.d/Avault start"
-        stop program  = "/opt/etc/init.d/Avault stop"
-
+#check process vault
+#        matching "python.*vault"
+#        start program = "/opt/etc/init.d/Avault start"
+#        stop program  = "/opt/etc/init.d/Avault stop"
+#
