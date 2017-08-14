@@ -1,2 +1,0 @@
-mv -f /opt/var/log/to_transitions.log /opt/var/log/to_transitions.log.1
-

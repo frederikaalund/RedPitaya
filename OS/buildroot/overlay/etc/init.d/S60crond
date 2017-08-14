@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# Starts crond.
+#
+start() {
+        echo -n "Starting cron daemon: "
+        umask 077
+        start-stop-daemon -q -x /usr/sbin/crond -S
+        if [ $? -eq 0 ]; then
+                echo "OK"
+        else
+                echo "FAIL (The process may already be started)"
+        fi
+}
+stop() {
+        echo -n "Stopping cron daemon: "
+        start-stop-daemon -q -x /usr/sbin/crond -K
+        if [ $? -eq 0 ]; then
+                echo "OK"
+        else
+                echo "FAIL (The process may already be stopped)"
+        fi
+}
+restart() {
+        stop
+        start
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        restart
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?
+
