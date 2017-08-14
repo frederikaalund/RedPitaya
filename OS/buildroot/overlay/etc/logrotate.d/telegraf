@@ -1,0 +1,4 @@
+/opt/var/log/telegraf/telegraf.log {
+    copytruncate
+}
+

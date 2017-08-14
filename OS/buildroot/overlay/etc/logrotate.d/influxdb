@@ -1,0 +1,4 @@
+/opt/var/log/influxdb/influxd.log {
+	copytruncate
+}
+
