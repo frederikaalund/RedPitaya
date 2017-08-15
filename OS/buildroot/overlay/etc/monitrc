@@ -12,6 +12,11 @@ check process sshd
         stop program "/etc/init.d/S50sshd stop"
         if failed host localhost port 7910 protocol ssh within 2 cycles then restart
 
+check process crond
+        matching "/usr/sbin/crond"
+        start program = "/etc/init.d/S60crond start"
+        stop  program = "/etc/init.d/S60crond stop"
+
 check process chronyd
         matching "chronyd"
         start program = "/etc/init.d/S49chrony start"
