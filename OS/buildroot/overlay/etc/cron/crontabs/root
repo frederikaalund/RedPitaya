@@ -1,1 +1,1 @@
-*/10 * * * * logrotate /etc/logrotate.conf --state=/opt/var/logrotate.status
+*/10 * * * * logrotate /etc/logrotate.conf --state=/opt/var/logrotate.status 2>&1 | /usr/bin/logger -t logrotate
