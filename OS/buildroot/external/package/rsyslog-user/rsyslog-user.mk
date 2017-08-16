@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RSYSLOG_USER_VERSION = 8.22.0
+RSYSLOG_USER_VERSION = 8.25.0
 RSYSLOG_USER_SOURCE = rsyslog-$(RSYSLOG_USER_VERSION).tar.gz
 RSYSLOG_USER_SITE = http://rsyslog.com/files/download/rsyslog
 RSYSLOG_USER_LICENSE = GPLv3, LGPLv3, Apache-2.0
@@ -12,7 +12,7 @@ RSYSLOG_USER_LICENSE_FILES = COPYING COPYING.LESSER COPYING.ASL20
 RSYSLOG_USER_DEPENDENCIES = zlib libestr libfastjson liblogging host-pkgconf
 RSYSLOG_USER_CONF_ENV = ac_cv_prog_cc_c99='-std=c99'
 RSYSLOG_USER_PLUGINS = imdiag imfile impstats imptcp \
-	mmanon mmaudit mmfields mmjsonparse mmpstrucdata mmsequence mmutf8fix \
+	mmanon mmaudit mmfields mmjsonparse mmpstrucdata mmrm1stspace mmsequence mmutf8fix \
 	mail omprog omruleset omstdout omuxsock \
 	pmaixforwardedfrom pmciscoios pmcisconames pmlastmsg pmsnare
 RSYSLOG_USER_CONF_OPTS = --disable-generate-man-pages \
