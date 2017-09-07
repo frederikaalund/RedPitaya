@@ -13,6 +13,9 @@ echo "++ Mounting filesystems"
 mkdir -p /dev/pts
 mount -a
 
+# Add i2c real-time clock (RTC)
+echo ds1307 0x68 > /sys/class/i2c-adapter/i2c-0/new_device
+
 # Check if SD card mounted, if not wait and try again
 if ! grep -qs $PATH_SD /proc/mounts; then
 	sleep 1
