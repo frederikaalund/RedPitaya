@@ -7,7 +7,7 @@
 case "$1" in
   start)
 	printf "Starting chrony: "
-	chronyd -s && echo "OK" || echo "FAIL"
+	chronyd && echo "OK" || echo "FAIL"
 	;;
   stop)
 	printf "Stopping chrony: "
