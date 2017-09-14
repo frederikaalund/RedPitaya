@@ -13,6 +13,8 @@ export INPUTRC=/etc/inputrc
 
 export PS1="\e[1;34m$USER@$HOSTNAME\e[m$ "
 
+export TZ=CPH-2
+
 # Aliases
 alias ll='ls -al'
 alias df='df -h'

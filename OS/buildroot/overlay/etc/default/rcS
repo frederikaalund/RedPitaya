@@ -1,2 +1,3 @@
-PATH_SD=/opt
+export PATH_SD=/opt
+export TZ=CPH-2
 
