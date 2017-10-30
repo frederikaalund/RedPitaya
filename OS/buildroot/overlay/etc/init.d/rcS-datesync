@@ -5,7 +5,7 @@ synchronize() {
 	wait_cycles=0
 	max_wait_cycles=10
 	while [[ $(date +%Y) == 1970 && $wait_cycles -lt $max_wait_cycles ]]; do
-		sleep 0.5
+		sleep 1
 		wait_cycles=`expr $wait_cycles + 1`
 	done
 	if [ $wait_cycles != $max_wait_cycles ]; then
