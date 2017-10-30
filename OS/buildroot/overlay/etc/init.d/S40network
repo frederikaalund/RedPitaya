@@ -59,10 +59,12 @@ case "$1" in
 
 		# 1000Base-T Ethernet
 		echo "++ Bringing up eth0"
-		# DHCP
+		# Built-in ethernet (DHCP)
 		ifup eth0
-		# Static IP
+		# Built-in ethernet (Static IP)
 		ifup eth0:0
+		# USB-ethernet adapter (DHCP)
+		ifup eth1
 
 		# Set-up NAT & routing in Wifi AP mode case
 		[ "x$WIFI" == "xap" ] && {
