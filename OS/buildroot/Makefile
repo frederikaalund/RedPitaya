@@ -12,7 +12,7 @@ B_DIR=buildroot-$(B_VERSION)
 B_ARCHIVE=$(B_DIR).tar.gz
 B_DOWNLOAD=$(B_SERVER)/$(B_ARCHIVE)
 UIMAGE=$(B_DIR)/output/images/rootfs.cpio.uboot
-SBTOS_VERSION=2017.10.2-alpha.0
+SBTOS_VERSION=2017.11.1
 OSRELEASE=overlay/etc/os-release
 
 INSTALL_DIR ?= .
