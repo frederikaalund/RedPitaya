@@ -9,7 +9,7 @@
 # setup cross compiler toolchain
 ################################################################################
 
-export TOOLCHAIN_PATH=/opt/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf
+export TOOLCHAIN_PATH=/opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf
 export UBOOT_TOOLS_PATH=/projects/RedPitaya/tmp/u-boot-xlnx-xilinx-v2016.2/tools
 export PATH=$PATH:$TOOLCHAIN_PATH/bin:$UBOOT_TOOLS_PATH
 export CROSS_COMPILE=arm-linux-gnueabihf-
