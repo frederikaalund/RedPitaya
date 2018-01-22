@@ -6,13 +6,13 @@
 
 # Where to get buildroot & which version
 B_SERVER=http://buildroot.uclibc.org/downloads
-B_VERSION=2017.08.1
+B_VERSION=2017.11.2
 B_DIR=buildroot-$(B_VERSION)
 #B_DIR=buildroot
 B_ARCHIVE=$(B_DIR).tar.gz
 B_DOWNLOAD=$(B_SERVER)/$(B_ARCHIVE)
 UIMAGE=$(B_DIR)/output/images/rootfs.cpio.uboot
-SBTOS_VERSION=2017.12.2-alpha.0
+SBTOS_VERSION=2018.01.1-alpha.0
 OSRELEASE=overlay/etc/os-release
 
 INSTALL_DIR ?= .
