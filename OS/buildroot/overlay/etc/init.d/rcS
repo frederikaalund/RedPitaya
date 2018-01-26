@@ -44,6 +44,9 @@ printf "127.0.0.1\tlocalhost\n127.0.1.1\t%s\n" $(cat /etc/hostname) > /etc/hosts
 # Create interfaces link
 ln -s $PATH_SD/etc/network/interfaces /etc/network/interfaces
 
+# Override /etc/localtime based on the /etc/timezone file (found on the SD card).
+ln -sf /usr/share/zoneinfo/$(cat /opt/etc/timezone) /etc/localtime
+
 echo "++ Running all startup scripts"
 # Run init scripts that require date synchronization in their own subprocess
 # so that they do not block.
