@@ -7,7 +7,11 @@
 case "$1" in
   start)
 	printf "Starting chrony: "
-	chronyd && echo "OK" || echo "FAIL"
+	# Ensure that the log directory exists
+	mkdir -p /opt/var/log/chrony
+	# We use nohup...& since chronyd doesn't detach itself from the terminal
+	# since version 3.2. This didn't happen in 3.1. Must be a regression.
+	nohup /usr/sbin/chronyd >> /opt/var/log/chrony/chrony.log 2>&1 &
 	;;
   stop)
 	printf "Stopping chrony: "
