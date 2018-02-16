@@ -1,6 +1,5 @@
 export PATH_SD=/opt
 export PATH=/sbin:/usr/sbin:/bin:/usr/bin:$PATH_SD/sbin:$PATH_SD/bin
-export LD_LIBRARY_PATH=$PATH_SD/lib
 
 export USER=`id -un`
 export LOGNAME=$USER

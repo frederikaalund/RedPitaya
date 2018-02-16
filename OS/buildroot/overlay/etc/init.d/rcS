@@ -25,6 +25,12 @@ if ! grep -qs $PATH_SD /proc/mounts; then
 	mount -a
 fi
 
+# Add data paths
+mkdir -p /media/data/chrony
+mkdir -p /media/data/log
+mkdir -p /media/data/logrotate
+mkdir -p /media/data/srv
+
 # Add SSH keys
 cat $PATH_SD/authorized_keys >> /root/.ssh/authorized_keys
 
