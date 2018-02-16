@@ -50,7 +50,7 @@ install: $(UIMAGE)
 	cp $(UIMAGE) $(INSTALL_DIR)/uramdisk.image.gz
 
 install-remote: install
-	ssh $(HOST) $(REDPITAYA_REMOTE_SD_FOLDER)/sbin/rw
+	ssh $(HOST) /bin/mount -o rw,remount /media/system
 	scp uramdisk.image.gz $(HOST):$(REDPITAYA_REMOTE_SD_FOLDER)
 
 clean:
