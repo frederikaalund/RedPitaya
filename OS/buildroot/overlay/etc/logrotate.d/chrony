@@ -1,4 +1,4 @@
-/opt/var/log/chrony/chrony.log {
+/var/log/chrony/chrony.log {
     copytruncate
 }
 
