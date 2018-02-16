@@ -5,9 +5,9 @@ setenv initrd_high ${high}
 
 echo Loading from SD card (FAT file system) to memory
 mmcinfo
-fatload mmc 0 0x2001000 uImage
-fatload mmc 0 0x3000000 uramdisk.image.gz
-fatload mmc 0 0x6000000 devicetree.dtb
+fatload mmc 0 0x2001000 boot/uImage
+fatload mmc 0 0x3000000 boot/uramdisk.image.gz
+fatload mmc 0 0x6000000 boot/devicetree.dtb
 
 echo Booting Linux kernel with ramdisk and devicetree
 setenv sdboot bootm 0x2001000 0x3000000 0x6000000
