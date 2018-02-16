@@ -6,19 +6,16 @@ then
 else
     echo "/etc/default/rcK not found."
 fi
-export PATH_SD
 
-# Start user rcK script from SD card
-OPT_RCK=$PATH_SD/etc/init.d/rcK
-echo "Running user script from SD card ..."
-if [ -f $OPT_RCK ]
-then
-    source $OPT_RCK
-else
-    echo "$OPT_RCK not found."
-fi
+/etc/init.d/Amonit stop
+/etc/init.d/Adash stop
+/etc/init.d/Asensord stop
+/etc/init.d/S81telegraf stop
+/etc/init.d/S80telegraf stop
+/etc/init.d/S51rsyslog stop
 
 # Shutdown CPU 1 and unmount
 echo 0 > /sys/devices/system/cpu/cpu1/online
 sleep 0.3
 /bin/umount -a -r
+

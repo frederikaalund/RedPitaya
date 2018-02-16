@@ -1,0 +1,41 @@
+#!/bin/sh
+if [ -r /etc/default/rcS ]
+then
+    . /etc/default/rcS
+else
+    echo "/etc/default/rcS not found."
+fi
+
+FBTFT_DEVICE_MODULE="fbtft_device.ko"
+FLEXFB_MODULE="flexfb.ko"
+INIT=-1,0x0028,0x0006,-1,0x0000,0x0001,-1,0x0010,0x0000,-1,0x0001,0x30EF,-1,0x0002,0x0600,-1,0x0003,0x6A38,-1,0x0011,0x6E70,-1,0X000F,0x0000,-1,0X000B,0x5308,-1,0x000C,0x0003,-1,0x000D,0x000A,-1,0x000E,0x2E00,-1,0x001E,0x00BE,-1,0x0025,0xA000,-1,0x0026,0x7800,-1,0x004E,0x0000,-1,0x004F,0x0000,-1,0x0012,0x08D9,-1,0x0030,0x0000,-1,0x0031,0x0104,-1,0x0032,0x0100,-1,0x0033,0x0305,-1,0x0034,0x0505,-1,0x0035,0x0305,-1,0x0036,0x0707,-1,0x0037,0x0300,-1,0x003A,0x1200,-1,0x003B,0x0800,-1,0x0007,0x0033,-1,0x0022,0x0000,-3	
+BACKLIGHT_GPIO=900
+
+case "$1" in
+	insert)
+		echo "Inserting ssd2119..."
+		modprobe $FBTFT_DEVICE_MODULE name=flexfb speed=50000000 gpios=reset:902,dc:901 busnum=1 cs=0 fps=60
+		modprobe $FLEXFB_MODULE width=320 height=240 regwidth=16 setaddrwin=2 init=$INIT
+		echo "Inserted ssd2119"
+		echo "Exporting GPIO $BACKLIGHT_GPIO (Backlight)..."
+		echo $BACKLIGHT_GPIO > /sys/class/gpio/export
+		echo "Exported GPIO $BACKLIGHT_GPIO (Backlight)"
+		;;
+	remove)
+		echo "Removing ssd2119..."
+		modprobe -r $FBTFT_DEVICE_MODULE
+		modprobe -r $FLEXFB_MODULE
+		echo "Removed ssd2119"
+		echo "Unexporting GPIO $BACKLIGHT_GPIO (Backlight)..."
+		echo $BACKLIGHT_GPIO > /sys/class/gpio/unexport
+		echo "Unexported GPIO $BACKLIGHT_GPIO (Backlight)"
+		;;
+	reinsert)
+		$0 remove
+		$0 insert
+		;;
+	*)
+		echo "usage: $0 {insert|remove|reinsert}"
+		;;
+esac
+

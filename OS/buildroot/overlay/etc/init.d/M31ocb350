@@ -1,0 +1,33 @@
+#!/bin/sh
+if [ -r /etc/default/rcS ]
+then
+    . /etc/default/rcS
+else
+    echo "/etc/default/rcS not found."
+fi
+
+DRIVER_MODULE="ocb350.ko"
+DEVICE0_MODULE="ocb350_0.ko"
+
+case "$1" in
+	insert)
+		echo "Inserting ocb350..."
+		modprobe $DRIVER_MODULE
+		modprobe $DEVICE0_MODULE
+		echo "Inserted ocb350"
+		;;
+	remove)
+		echo "Removing ocb350..."
+		modprobe -r $DRIVER_MODULE
+		modprobe -r $DEVICE0_MODULE
+		echo "Removed ocb350..."
+		;;
+	reinsert)
+		$0 remove
+		$0 insert
+		;;
+	*)
+		echo "usage: $0 {insert|remove|reinsert}"
+		;;
+esac
+

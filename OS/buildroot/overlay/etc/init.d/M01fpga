@@ -1,0 +1,21 @@
+#!/bin/sh
+if [ -r /etc/default/rcS ]
+then
+    . /etc/default/rcS
+else
+    echo "/etc/default/rcS not found."
+fi
+
+FPGA_IMAGE=/lib/fpga/0011_red_pitaya_top.bit
+
+case "$1" in
+	insert)
+		echo "Inserting FPGA image..."
+		cat $FPGA_IMAGE > /dev/xdevcfg
+		echo "Inserted FPGA image"
+		;;
+	*)
+		echo "usage: $0 {insert}"
+		;;
+esac
+

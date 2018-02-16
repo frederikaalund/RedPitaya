@@ -1,0 +1,30 @@
+#!/bin/sh
+if [ -r /etc/default/rcS ]
+then
+    . /etc/default/rcS
+else
+    echo "/etc/default/rcS not found."
+fi
+
+MODULE="buttons.ko"
+
+case "$1" in
+	insert)
+		echo "Inserting $MODULE..."
+		modprobe $MODULE
+		echo "Inserted $MODULE"
+		;;
+	remove)
+		echo "Removing $MODULE..."
+		modprobe -r $MODULE
+		echo "Removed $MODULE"
+		;;
+	reinsert)
+		$0 remove
+		$0 insert
+		;;
+	*)
+		echo "usage: $0 {insert|remove|reinsert}"
+		;;
+esac
+

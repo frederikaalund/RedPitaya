@@ -24,22 +24,22 @@ check process chronyd
 
 check process influxd
         with pidfile /var/run/influxdb/influxd.pid
-        start program = "/opt/etc/init.d/S80influxdb start"
-        stop  program = "/opt/etc/init.d/S80influxdb stop"
+        start program = "/etc/init.d/S80influxdb start"
+        stop  program = "/etc/init.d/S80influxdb stop"
 
 check process telegraf
         with pidfile /var/run/telegraf/telegraf.pid
-        start program = "/opt/etc/init.d/S81telegraf start"
-        stop  program = "/opt/etc/init.d/S81telegraf stop"
+        start program = "/etc/init.d/S81telegraf start"
+        stop  program = "/etc/init.d/S81telegraf stop"
 
 check process sensord
         matching "python.*sensord"
-        start program = "/opt/etc/init.d/Asensord start"
-        stop program  = "/opt/etc/init.d/Asensord stop"
+        start program = "/etc/init.d/Asensord start"
+        stop program  = "/etc/init.d/Asensord stop"
         if failed host localhost port 5005 within 2 cycles then restart
 
 check process dash
         matching "python.*dash"
-        start program = "/opt/etc/init.d/Adash start"
-        stop program  = "/opt/etc/init.d/Adash stop"
+        start program = "/etc/init.d/Adash start"
+        stop program  = "/etc/init.d/Adash stop"
 

@@ -1,0 +1,30 @@
+#!/bin/sh
+if [ -r /etc/default/rcS ]
+then
+    . /etc/default/rcS
+else
+    echo "/etc/default/rcS not found."
+fi
+
+TIA_GPIO=903
+
+case "$1" in
+	insert)
+		echo "Exporting GPIO $TIA_GPIO (TIA on/off)..."
+		echo $TIA_GPIO > /sys/class/gpio/export
+		echo "Exported GPIO $TIA_GPIO (TIA on/off)"
+		;;
+	remove)
+		echo "Unexporting GPIO $TIA_GPIO (TIA on/off)..."
+		echo $TIA_GPIO > /sys/class/gpio/unexport
+		echo "Unexported GPIO $TIA_GPIO (TIA on/off)"
+		;;
+	reinsert)
+		$0 remove
+		$0 insert
+		;;
+	*)
+		echo "usage: $0 {insert|remove|reinsert}"
+		;;
+esac
+
