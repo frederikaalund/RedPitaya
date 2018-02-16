@@ -1,0 +1,21 @@
+case "$1" in
+        start)
+                echo -n "Starting monit... "
+                /usr/bin/monit
+                echo "done."
+                ;;
+        stop)
+                echo -n "Stopping monit..."
+                /usr/bin/monit quit
+                echo "done."
+                ;;
+        restart)
+                $0 stop
+                sleep 1
+                $0 start
+                ;;
+        *)
+                echo "usage: $0 {start|stop|restart}"
+                ;;
+esac
+

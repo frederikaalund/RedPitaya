@@ -20,25 +20,29 @@ echo ds1307 0x68 > /sys/class/i2c-adapter/i2c-0/new_device
 hwclock -us
 
 # Check if SD card mounted, if not wait and try again
-if ! grep -qs $PATH_SD /proc/mounts; then
+if ! grep -qs /media/data /proc/mounts; then
+	sleep 1
+	mount -a
+fi
+if ! grep -qs /media/system /proc/mounts; then
 	sleep 1
 	mount -a
 fi
 
-# Add data paths
+# Add data directories
 mkdir -p /media/data/chrony
 mkdir -p /media/data/log
 mkdir -p /media/data/logrotate
 mkdir -p /media/data/srv
 
 # Add SSH keys
-cat $PATH_SD/authorized_keys >> /root/.ssh/authorized_keys
+cat /media/system/authorized_keys >> /root/.ssh/authorized_keys
 
 # Fix keys for SHH
 # Note that the keys are copied (and not symlinked from the overlay) since
-# the SD card (where $PATH_SD points to) is formatted using FAT32 which doesn't
+# the SD card (mounted on /media/system) is formatted using FAT32 which doesn't
 # allow for individual file permissions.
-cp $PATH_SD/etc/ssh/* /etc/ssh
+cp /media/system/etc/ssh/* /etc/ssh
 chmod 600 `find /etc/ssh/ -name ssh_host_\*`
 
 # Fix permissions for monitrc
@@ -48,19 +52,55 @@ chmod 700 /etc/monitrc
 printf "127.0.0.1\tlocalhost\n127.0.1.1\t%s\n" $(cat /etc/hostname) > /etc/hosts
 
 # Create interfaces link
-ln -s $PATH_SD/etc/network/interfaces /etc/network/interfaces
+ln -s /media/system/etc/network/interfaces /etc/network/interfaces
 
 # Override /etc/localtime based on the /etc/timezone file (found on the SD card).
-ln -sf /usr/share/zoneinfo/$(cat /opt/etc/timezone) /etc/localtime
+ln -sf /usr/share/zoneinfo/$(cat /media/system/etc/timezone) /etc/localtime
 
 echo "++ Running all startup scripts"
-# Run init scripts that require date synchronization in their own subprocess
-# so that they do not block.
-nohup sh rcS-datesync > /dev/null &
-
 # Start all init scripts in /etc/init.d
 # executing them in numerical order.
 #
+# Modules
+for i in /etc/init.d/M??* ;do
+
+     # Ignore dangling symlinks (if any).
+     [ ! -f "$i" ] && continue
+
+     case "$i" in
+        *.sh)
+            # Source shell script for speed.
+            (
+                trap - INT QUIT TSTP
+                set insert
+                . $i
+            )
+            ;;
+        *)
+            # No sh extension, so fork subprocess.
+            $i insert
+            ;;
+    esac
+done
+
+# Asynchronous scripts without order
+#
+for i in /etc/init.d/A* ;do
+	
+	# Ignore dangling symlinks (if any).
+	[ ! -f "$i" ] && continue
+
+	case "$i" in
+		*Amonit)
+			nohup sh -c "sleep 30; $i start" > /dev/null &
+			;;
+		*)
+			nohup sh $i start > /dev/null &
+			;;
+	esac
+done
+
+# Synchronuous scripts in order
 for i in /etc/init.d/S??* ;do
 
      # Ignore dangling symlinks (if any).
@@ -81,14 +121,3 @@ for i in /etc/init.d/S??* ;do
             ;;
     esac
 done
-
-# Start user rcS script from SD card
-OPT_RCS=$PATH_SD/etc/init.d/rcS
-echo "Running user script from SD card ..."
-if [ -f $OPT_RCS ]
-then
-    source $OPT_RCS
-else
-    echo "$OPT_RCS not found."
-fi
-
