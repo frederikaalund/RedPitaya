@@ -1,5 +1,4 @@
-export PATH_SD=/opt
-export PATH=/sbin:/usr/sbin:/bin:/usr/bin:$PATH_SD/sbin:$PATH_SD/bin
+export PATH=/sbin:/usr/sbin:/bin:/usr/bin
 
 export USER=`id -un`
 export LOGNAME=$USER
