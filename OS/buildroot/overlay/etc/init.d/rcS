@@ -51,9 +51,6 @@ chmod 700 /etc/monitrc
 # Override the /etc/hosts file with the actual hostname (found on the SD card).
 printf "127.0.0.1\tlocalhost\n127.0.1.1\t%s\n" $(cat /etc/hostname) > /etc/hosts
 
-# Create interfaces link
-ln -s /media/system/etc/network/interfaces /etc/network/interfaces
-
 # Override /etc/localtime based on the /etc/timezone file (found on the SD card).
 ln -sf /usr/share/zoneinfo/$(cat /media/system/etc/timezone) /etc/localtime
 
