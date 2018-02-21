@@ -131,7 +131,7 @@ $(UBOOT_DIR): $(UBOOT_TAR)
 
 $(UBOOT): $(UBOOT_DIR) $(TMP)
 	make -C $< arch=ARM zynq_red_pitaya_defconfig
-	make -C $< arch=ARM CFLAGS=$(UBOOT_CFLAGS)
+	PATH=$(PATH):$(shell pwd)/tools/dtc make -C $< arch=ARM CFLAGS=$(UBOOT_CFLAGS)
 	cp $(UBOOT_DIR)/u-boot $@
 
 $(UBOOT_SCRIPT): $(INSTALL_DIR) $(UBOOT_DIR) $(UBOOT)
