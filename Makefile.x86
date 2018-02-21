@@ -155,7 +155,6 @@ $(LINUX_DIR): $(LINUX_TAR)
 	tar -zxf $< --strip-components=1 --directory=$@
 
 $(LINUX): $(LINUX_DIR)
-	make -C $< mrproper
 	make -C $< ARCH=arm xilinx_zynq_defconfig
 	PATH=$(PATH):$(shell pwd)/$(UBOOT_DIR)/tools make -C $< ARCH=arm CFLAGS=$(LINUX_CFLAGS) -j $(shell grep -c ^processor /proc/cpuinfo) UIMAGE_LOADADDR=0x8000 uImage
 
