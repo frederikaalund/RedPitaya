@@ -29,3 +29,5 @@
 *.hex
 # backups
 *~
+# Build files
+boot_uboot.bif
