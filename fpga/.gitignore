@@ -1,0 +1,11 @@
+# Build files
+*.os
+.Xil
+.srcs
+out
+sdk
+vivado*.log
+prj/logic/ps_clock_registers.log
+synReport.txt-*
+usage_statistics_webtalk.xml
+usage_statistics_webtalk.html
