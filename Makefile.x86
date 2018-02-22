@@ -11,7 +11,7 @@ export REVISION
 export VERSION
 
 SUBMODULE_UBT = "redpitaya-v2016.4"
-SUBMODULE_LIN = "branch-redpitaya-v2017.2"
+SUBMODULE_LIN = "sbtOS-v2017.2"
 SUBMODULE_APP = $(shell git submodule status Applications)
 
 define GREET_MSG
@@ -59,7 +59,7 @@ $(INSTALL_DIR):
 ################################################################################
 
 UBOOT_TAG     = redpitaya-v2016.4
-LINUX_TAG     = branch-redpitaya-v2017.2
+LINUX_TAG     = sbtOS-v2017.2
 DTREE_TAG     = xilinx-v2017.2
 
 UBOOT_DIR     = $(TMP)/u-boot-xlnx-$(UBOOT_TAG)
@@ -72,7 +72,7 @@ DTREE_TAR     = $(DL)/device-tree-xlnx-$(DTREE_TAG).tar.gz
 
 # it is possible to use an alternative download location (local) by setting environment variables
 UBOOT_URL     ?= https://github.com/RedPitaya/u-boot-xlnx/archive/$(UBOOT_TAG).tar.gz
-LINUX_URL     ?= https://github.com/RedPitaya/linux-xlnx/archive/$(LINUX_TAG).tar.gz
+LINUX_URL     ?= https://github.com/smartbiotech/linux-xlnx/archive/$(LINUX_TAG).tar.gz
 DTREE_URL     ?= https://github.com/Xilinx/device-tree-xlnx/archive/$(DTREE_TAG).tar.gz
 
 LINUX_CFLAGS = "-O2 -mtune=cortex-a9 -mfpu=neon -mfloat-abi=hard"
