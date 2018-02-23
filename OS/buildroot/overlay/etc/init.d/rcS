@@ -80,23 +80,6 @@ for i in /etc/init.d/M??* ;do
     esac
 done
 
-# Asynchronous scripts without order
-#
-for i in /etc/init.d/A* ;do
-	
-	# Ignore dangling symlinks (if any).
-	[ ! -f "$i" ] && continue
-
-	case "$i" in
-		*Amonit)
-			nohup sh -c "sleep 30; $i start" > /dev/null &
-			;;
-		*)
-			nohup sh $i start > /dev/null &
-			;;
-	esac
-done
-
 # Synchronuous scripts in order
 for i in /etc/init.d/S??* ;do
 
@@ -118,3 +101,21 @@ for i in /etc/init.d/S??* ;do
             ;;
     esac
 done
+
+# Asynchronous scripts without order
+#
+for i in /etc/init.d/A* ;do
+	
+	# Ignore dangling symlinks (if any).
+	[ ! -f "$i" ] && continue
+
+	case "$i" in
+		*Amonit)
+			nohup sh -c "sleep 30; $i start" > /dev/null &
+			;;
+		*)
+			nohup sh $i start > /dev/null &
+			;;
+	esac
+done
+

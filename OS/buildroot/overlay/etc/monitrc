@@ -24,13 +24,13 @@ check process chronyd
 
 check process influxd
         with pidfile /var/run/influxdb/influxd.pid
-        start program = "/etc/init.d/S80influxdb start"
-        stop  program = "/etc/init.d/S80influxdb stop"
+        start program = "/etc/init.d/S81influxdb start"
+        stop  program = "/etc/init.d/S81influxdb stop"
 
 check process telegraf
         with pidfile /var/run/telegraf/telegraf.pid
-        start program = "/etc/init.d/S81telegraf start"
-        stop  program = "/etc/init.d/S81telegraf stop"
+        start program = "/etc/init.d/S82telegraf start"
+        stop  program = "/etc/init.d/S82telegraf stop"
 
 check process sensord
         matching "python.*sensord"
