@@ -18,7 +18,8 @@ null::sysinit:/bin/mount -t proc proc /proc
 null::sysinit:/bin/mount -o remount,rw / # REMOUNT_ROOTFS_RW
 null::sysinit:/bin/mkdir -p /dev/pts
 null::sysinit:/bin/mkdir -p /dev/shm
-null::sysinit:/sbin/dosfsck -aw /dev/mmcblk0p1 # Auto-repair SD card
+null::sysinit:/sbin/fsck.vfat -p /dev/mmcblk0p1 # Auto-repair SD card (System)
+null::sysinit:/sbin/fsck.ext4 -p /dev/mmcblk0p2 # Auto-repair SD card (Data)
 null::sysinit:/bin/mkdir -p /media/data
 null::sysinit:/bin/mkdir -p /media/system
 null::sysinit:/bin/mount -a
