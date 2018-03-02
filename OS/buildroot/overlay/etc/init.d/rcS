@@ -13,8 +13,32 @@ echo "++ Mounting filesystems"
 mkdir -p /dev/pts
 mount -a
 
-# Set system partition
-ln -s /media/system0 /media/system
+# Determine active system partition
+system0_version=$(awk "{print \$3}" /media/system0/version 2> /dev/null)
+system1_version=$(awk "{print \$3}" /media/system1/version 2> /dev/null)
+
+# Non-numbers get set to -1
+if ! echo $system0_version | egrep -q '^[0-9]+$'; then
+    system0_version=-1
+fi
+if ! echo $system1_version | egrep -q '^[0-9]+$'; then
+    system1_version=-1
+fi
+
+if [ "$system0_version" -gt "$system1_version" ]; then
+    active_system=/media/system0
+    inactive_system=/media/system1
+else
+    active_system=/media/system1
+    inactive_system=/media/system0
+fi
+
+# Set active/inactive system
+echo "active_system=$active_system"
+echo "inactive_system=$inactive_system"
+# Set system partitions
+ln -s $active_system /media/system
+ln -s $inactive_system /media/inactive_system
 
 # Set hostname (depends on /media/system being set since /etc/hostname links to that)
 hostname -F /etc/hostname
