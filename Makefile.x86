@@ -135,7 +135,7 @@ $(UBOOT): $(UBOOT_DIR) $(TMP)
 	cp $(UBOOT_DIR)/u-boot $@
 
 $(UBOOT_SCRIPT): $(INSTALL_DIR) $(UBOOT_DIR) $(UBOOT)
-	$(UBOOT_DIR)/tools/mkimage -A ARM -O linux -T script -C none -a 0 -e 0 -n "boot Debian" -d patches/u-boot/u-boot.script $@
+	$(UBOOT_DIR)/tools/mkimage -A ARM -O linux -T script -C none -a 0 -e 0 -n "boot buildroot" -d patches/u-boot/u-boot.script $@
 
 ################################################################################
 # Linux build provides: $(LINUX)
