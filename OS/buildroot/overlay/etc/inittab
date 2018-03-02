@@ -18,12 +18,15 @@ null::sysinit:/bin/mount -t proc proc /proc
 null::sysinit:/bin/mount -o remount,rw / # REMOUNT_ROOTFS_RW
 null::sysinit:/bin/mkdir -p /dev/pts
 null::sysinit:/bin/mkdir -p /dev/shm
-null::sysinit:/sbin/fsck.vfat -p /dev/mmcblk0p1 # Auto-repair SD card (System)
-null::sysinit:/sbin/fsck.ext4 -p /dev/mmcblk0p2 # Auto-repair SD card (Data)
+null::sysinit:/sbin/fsck.vfat -p /dev/mmcblk0p1 # Auto-repair SD card (Boot)
+null::sysinit:/sbin/fsck.vfat -p /dev/mmcblk0p2 # Auto-repair SD card (System 0)
+null::sysinit:/sbin/fsck.vfat -p /dev/mmcblk0p3 # Auto-repair SD card (System 1)
+null::sysinit:/sbin/fsck.ext4 -p /dev/mmcblk0p4 # Auto-repair SD card (Data)
+null::sysinit:/bin/mkdir -p /media/boot
+null::sysinit:/bin/mkdir -p /media/system0
+null::sysinit:/bin/mkdir -p /media/system1
 null::sysinit:/bin/mkdir -p /media/data
-null::sysinit:/bin/mkdir -p /media/system
 null::sysinit:/bin/mount -a
-null::sysinit:/bin/hostname -F /etc/hostname
 # now run any rc scripts
 ::sysinit:/etc/init.d/rcS
 

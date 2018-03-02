@@ -13,6 +13,12 @@ echo "++ Mounting filesystems"
 mkdir -p /dev/pts
 mount -a
 
+# Set system partition
+ln -s /media/system0 /media/system
+
+# Set hostname (depends on /media/system being set since /etc/hostname links to that)
+hostname -F /etc/hostname
+
 # Add i2c real-time clock (RTC)
 echo ds1307 0x68 > /sys/class/i2c-adapter/i2c-0/new_device
 

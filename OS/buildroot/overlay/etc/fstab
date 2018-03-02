@@ -7,6 +7,8 @@ devpts             /dev/pts       devpts   defaults,gid=5,mode=620      0      0
 tmpfs              /dev/shm       tmpfs    mode=0777                    0      0              
 tmpfs              /tmp           tmpfs    nodev,nosuid,size=128M       0      0              
 sysfs              /sys           sysfs    defaults                     0      0
-/dev/mmcblk0p1     /media/system  vfat     ro,defaults                  0      0
-/dev/mmcblk0p2     /media/data    ext4     defaults                     0      0
+/dev/mmcblk0p1     /media/boot    vfat     ro,defaults                  0      0
+/dev/mmcblk0p2     /media/system0 vfat     ro,defaults                  0      0
+/dev/mmcblk0p3     /media/system1 vfat     ro,defaults                  0      0
+/dev/mmcblk0p4     /media/data    ext4     defaults                     0      0
 
