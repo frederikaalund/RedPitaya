@@ -12,7 +12,7 @@ B_DIR=buildroot-$(B_VERSION)
 B_ARCHIVE=$(B_DIR).tar.gz
 B_DOWNLOAD=$(B_SERVER)/$(B_ARCHIVE)
 UIMAGE=$(B_DIR)/output/images/rootfs.cpio.uboot
-GIT_DESCRIPTION=$(shell git describe --tags --dirty --always --match v[0-9]\.[0-9]\.[0-9])
+GIT_DESCRIPTION=$(shell git describe --tags --dirty --always --match [0-9][0-9][0-9][0-9]\.[0-9][0-9]\.[0-9]*)
 SBTOS_VERSION=$(GIT_DESCRIPTION:v%=%)
 OSRELEASE=overlay/etc/os-release
 
