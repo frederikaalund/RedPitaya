@@ -7,7 +7,7 @@ fatload mmc 0:2 0x2001000 version.img && source 0x2001000
 # Set system1_version
 fatload mmc 0:3 0x2001000 version.img && source 0x2001000
 # The active partition is the one with the greatest version number
-if test "$system0_version" > "$system1_version"; then
+if test "$system0_version" -gt "$system1_version"; then
 	# System 0
 	setenv active_partition 2
 else
