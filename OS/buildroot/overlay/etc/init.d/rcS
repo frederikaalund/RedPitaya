@@ -88,7 +88,7 @@ ln -sf /usr/share/zoneinfo/$(cat /media/config/etc/timezone) /etc/localtime
 cat /media/config/etc/motd > /etc/motd
 SYSTEM_VERSION=$(awk 'BEGIN{FS=" ";}{print $2;}' /etc/sw-versions)
 echo " system  $SYSTEM_VERSION" >> /etc/motd
-echo "-------------------------------------------"
+echo " -------------------------------------------" >> /etc/motd
 . /etc/os-release
 echo " sbtOS   $VERSION" >> /etc/motd
 SENSORD_VERSION=$(python -c "import sensord; print(sensord.__version__)")
