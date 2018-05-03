@@ -1,0 +1,59 @@
+logger "autorun: ACTION=${ACTION} MDEV=${MDEV}"
+
+mount_dir=/media
+
+if [ -z "${MDEV}" ]; then
+	logger "autorun: MDEV was not set. Exiting..."
+	exit 1
+fi
+
+eumount() {
+	if grep -qs "^/dev/$1 " /proc/mounts; then
+		umount -f "${mount_dir}/$1"
+	fi
+
+	[ -d "${mount_dir}/$1" ] && rmdir "${mount_dir}/$1"
+}
+
+emount() {
+	mkdir -p "${mount_dir}/$1"
+
+	local attempts=0
+	local max_attempts=10
+
+	while ! mount -t auto -o ro,defaults "/dev/$1" "${mount_dir}/$1" && [[ $attempts -lt $max_attempts ]]; do
+		logger "autorun: Failed to mount $1 (attempt $(expr $attempts + 1)/${max_attempts})"
+		sleep 1
+		attempts=$(expr $attempts + 1)
+	done
+
+	if [[ $attempts -eq $max_attempts ]] ; then
+		logger "autorun: Failed to mount $1"
+		rmdir "${mount_dir}/$1"
+		exit 1
+	fi
+
+	logger "autorun: Mounted $1"
+}
+
+autorun() {
+	local autorunpy="${mount_dir}/$1/autorun.py"
+	if [ -x "$autorunpy" ]; then
+		logger "autorun: ${autorunpy}"
+		python "${autorunpy}"
+	fi
+}
+
+case "${ACTION}" in
+	add)
+		eumount $MDEV
+		emount $MDEV
+		autorun $MDEV
+		;;
+	remove)
+		eumount $MDEV
+		;;
+	*)
+		logger "autorun: Unknown action '${ACTION}'"
+		;;
+esac
