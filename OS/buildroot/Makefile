@@ -17,7 +17,7 @@ SBTOS_VERSION=$(GIT_DESCRIPTION:v%=%)
 OSRELEASE=overlay/etc/os-release
 
 INSTALL_DIR ?= .
-HOST ?= rp
+HOST ?= sensor-dev-1
 
 all: $(UIMAGE)
 
