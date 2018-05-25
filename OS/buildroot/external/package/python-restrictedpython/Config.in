@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_RESTRICTEDPYTHON
+	bool "python-restrictedpython"
+	help
+	  A restricted execution environment for Python to run untrusted code.
+
+	  http://restrictedpython.readthedocs.io/
+

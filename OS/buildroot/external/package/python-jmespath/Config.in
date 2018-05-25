@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_JMESPATH
+	bool "python-jmespath"
+	help
+	  JMESPath is a query language for JSON.
+
+	  http://jmespath.org/
+

@@ -1,0 +1,14 @@
+setup.py: remove 'pytest-runner' from setup requirements.
+
+Signed-off-by: Frederik Aalund <fpa@sbtinstruments.com>
+
+--- a/setup.py	2018-05-18 14:29:29.000000000 +0200
++++ b/setup.py	2018-05-25 10:10:16.207988805 +0200
+@@ -64,7 +64,6 @@
+         'setuptools',
+     ],
+     setup_requires=[
+-        'pytest-runner',
+     ],
+     tests_require=tests_require,
+     extras_require={
