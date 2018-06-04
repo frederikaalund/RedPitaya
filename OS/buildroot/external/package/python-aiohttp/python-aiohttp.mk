@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PYTHON_AIOHTTP_VERSION = v3.0.6
+PYTHON_AIOHTTP_VERSION = v3.2.1
 PYTHON_AIOHTTP_SITE = $(call github,aio-libs,aiohttp,$(PYTHON_AIOHTTP_VERSION))
 PYTHON_AIOHTTP_SETUP_TYPE = setuptools
 PYTHON_AIOHTTP_LICENSE = Apache-2.0
