@@ -88,14 +88,6 @@ ln -sf /usr/share/zoneinfo/$(cat /media/config/etc/timezone) /etc/localtime
 cat /media/config/etc/motd > /etc/motd
 SYSTEM_VERSION=$(awk 'BEGIN{FS=" ";}{print $2;}' /etc/sw-versions)
 echo " system  $SYSTEM_VERSION" >> /etc/motd
-echo " -------------------------------------------" >> /etc/motd
-. /etc/os-release
-echo " sbtOS   $VERSION" >> /etc/motd
-SENSORD_VERSION=$(python -c "import sensord; print(sensord.__version__)")
-echo " sensord $SENSORD_VERSION" >> /etc/motd
-DASH_VERSION=$(python -c "import dash; print(dash.__version__)")
-echo " dash    $DASH_VERSION" >> /etc/motd
-echo "" >> /etc/motd
 
 echo "++ Running all startup scripts"
 # Start all init scripts in /etc/init.d
