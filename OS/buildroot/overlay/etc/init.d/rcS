@@ -89,7 +89,8 @@ cat /media/config/etc/motd > /etc/motd
 SYSTEM_VERSION=$(awk 'BEGIN{FS=" ";}{print $2;}' /etc/sw-versions)
 echo " system $SYSTEM_VERSION" >> /etc/motd
 CONFIG_VERSION=$(awk 'BEGIN{FS=" ";}{print $2;}' /etc/config-version)
-echo " config $CONFIG_VERSION" >> /etc/motd
+CONFIG_NAME=$(awk 'BEGIN{FS=" ";}{print $1;}' /etc/config-version)
+echo " config $CONFIG_VERSION ($CONFIG_NAME)" >> /etc/motd
 
 echo "++ Running all startup scripts"
 # Start all init scripts in /etc/init.d
