@@ -6,18 +6,18 @@ else
     echo "/etc/default/rcS not found."
 fi
 
-MODULE="ocb350.ko"
+MODULE="board_setup.ko"
 
 case "$1" in
 	insert)
-		echo "Inserting ocb350..."
+		echo "Inserting board_setup..."
 		modprobe $MODULE
-		echo "Inserted ocb350"
+		echo "Inserted board_setup"
 		;;
 	remove)
-		echo "Removing ocb350..."
+		echo "Removing board_setup..."
 		modprobe -r $MODULE
-		echo "Removed ocb350..."
+		echo "Removed board_setup..."
 		;;
 	reinsert)
 		$0 remove
