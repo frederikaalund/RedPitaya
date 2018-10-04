@@ -1,0 +1,33 @@
+From bfa69ee8d967281a230d4fca1a9582d5c0628568 Mon Sep 17 00:00:00 2001
+From: Frederik Peter Aalund <fpa@sbtinstruments.com>
+Date: Thu, 4 Oct 2018 11:20:04 +0200
+Subject: [PATCH] Add PYSPY_CROSS_COMPILE_TARGET parameter to setup.py.
+
+---
+ setup.py | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/setup.py b/setup.py
+index da83478..61d70dc 100755
+--- a/setup.py
++++ b/setup.py
+@@ -54,12 +54,16 @@ class PostInstallCommand(install):
+         # issues like https://github.com/benfred/py-spy/issues/5.
+         # Note: we're only doing this on demand since this requires musl-tools installed
+         # but the released wheels should have this option set
++        cross_compile_target = os.getenv("PYSPY_CROSS_COMPILE_TARGET")
+         if os.getenv("PYSPY_MUSL_64"):
+             compile_args = " --target=x86_64-unknown-linux-musl"
+             build_dir = os.path.join(source_dir, "target", "x86_64-unknown-linux-musl", "release")
+         elif os.getenv("PYSPY_MUSL_32"):
+             compile_args = " --target=i686-unknown-linux-musl"
+             build_dir = os.path.join(source_dir, "target", "i686-unknown-linux-musl", "release")
++        elif cross_compile_target:
++            compile_args = " --target=%s" % cross_compile_target
++            build_dir = os.path.join(source_dir, "target", cross_compile_target, "release")
+         else:
+             compile_args = ""
+             build_dir = os.path.join(source_dir, "target", "release")
+-- 
+2.17.1
+

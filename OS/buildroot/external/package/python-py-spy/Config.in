@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_PY_SPY
+	bool "python-py-spy"
+	select BR2_PACKAGE_HOST_RUSTC
+	select BR2_PACKAGE_HOST_CARGO
+	help
+	  Sampling profiler for Python programs.
+
+	  https://github.com/benfred/py-spy

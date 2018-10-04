@@ -1,0 +1,21 @@
+From 1ba6c8936a87a44f7788d09df46c0c704e3ca3c7 Mon Sep 17 00:00:00 2001
+From: Frederik Peter Aalund <fpa@sbtinstruments.com>
+Date: Thu, 4 Oct 2018 11:33:45 +0200
+Subject: [PATCH] Add .cargo/config with linker information for armv7.
+
+---
+ .cargo/config | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 .cargo/config
+
+diff --git a/.cargo/config b/.cargo/config
+new file mode 100644
+index 0000000..0c1c209
+--- /dev/null
++++ b/.cargo/config
+@@ -0,0 +1,2 @@
++[target.armv7-unknown-linux-gnueabihf]
++linker = "arm-linux-gnueabihf-gcc"
+-- 
+2.17.1
+
