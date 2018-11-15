@@ -1,9 +1,8 @@
 #!/bin/sh
-if [ -r /etc/default/rcS ]
-then
-    . /etc/default/rcS
+if [ -r /etc/default/M30pump ]; then
+    . /etc/default/M30pump
 else
-    echo "/etc/default/rcS not found."
+    echo "/etc/default/M30pump not found."
 fi
 
 MODULE="pump.ko"
@@ -11,7 +10,11 @@ MODULE="pump.ko"
 case "$1" in
 	insert)
 		echo "Inserting $MODULE..."
-		modprobe $MODULE
+		if [ -z "$PUMP_NAME" ]; then
+			modprobe $MODULE
+		else
+			modprobe $MODULE pump_name=$PUMP_NAME
+		fi
 		echo "Inserted $MODULE"
 		;;
 	remove)
