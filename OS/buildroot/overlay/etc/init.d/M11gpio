@@ -7,14 +7,27 @@ else
 fi
 
 MODULE="gpio.ko"
+EXPORTED_GPIOS="890 898"
 
 case "$1" in
 	insert)
 		echo "Inserting $MODULE..."
 		modprobe $MODULE
 		echo "Inserted $MODULE"
+
+		echo "Exporting selected GPIOs..."
+		for gpio in $EXPORTED_GPIOS; do
+			echo $gpio > /sys/class/gpio/export
+		done
+		echo "Exported selected GPIOs"
 		;;
 	remove)
+		echo "Unexporting selected GPIOs..."
+		for gpio in $EXPORTED_GPIOS; do
+			echo $gpio > /sys/class/gpio/unexport
+		done
+		echo "Unexported selected GPIOs"
+
 		echo "Removing $MODULE..."
 		modprobe -r $MODULE
 		echo "Removed $MODULE"
