@@ -1,9 +1,8 @@
 #!/bin/sh
-if [ -r /etc/default/rcS ]
-then
-    . /etc/default/rcS
+if [ -r /etc/default/M40board_setup ]; then
+    . /etc/default/M40board_setup
 else
-    echo "/etc/default/rcS not found."
+    echo "/etc/default/M40board_setup not found."
 fi
 
 MODULE="board_setup.ko"
@@ -11,7 +10,11 @@ MODULE="board_setup.ko"
 case "$1" in
 	insert)
 		echo "Inserting board_setup..."
-		modprobe $MODULE
+		if [ -z "$OCB350_0_ENABLED" ]; then
+			modprobe $MODULE
+		else
+			modprobe $MODULE ocb350_0_enabled=$OCB350_0_ENABLED
+		fi
 		echo "Inserted board_setup"
 		;;
 	remove)
