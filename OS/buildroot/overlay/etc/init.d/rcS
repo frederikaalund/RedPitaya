@@ -43,6 +43,9 @@ ln -s $inactive_system /media/inactive_system
 # Set hostname
 hostname -F /etc/hostname
 
+# Create modules.* files in /lib/modules/...
+depmod
+
 # Add i2c real-time clock (RTC)
 echo ds1307 0x68 > /sys/class/i2c-adapter/i2c-0/new_device
 
