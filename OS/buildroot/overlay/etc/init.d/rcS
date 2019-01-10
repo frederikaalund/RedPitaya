@@ -6,7 +6,7 @@ if [ -r /etc/default/rcS ]
 then
 	. /etc/default/rcS
 else
-    echo "/etc/default/rcS not found."
+	echo "/etc/default/rcS not found."
 fi
 
 echo "++ Mounting filesystems"
@@ -19,18 +19,18 @@ system1_version=$(awk "{print \$3}" /media/system1/version 2> /dev/null)
 
 # Non-numbers get set to -1
 if ! echo $system0_version | egrep -q '^[0-9]+$'; then
-    system0_version=-1
+	system0_version=-1
 fi
 if ! echo $system1_version | egrep -q '^[0-9]+$'; then
-    system1_version=-1
+	system1_version=-1
 fi
 
 if [ "$system0_version" -gt "$system1_version" ]; then
-    active_system=/media/system0
-    inactive_system=/media/system1
+	active_system=/media/system0
+	inactive_system=/media/system1
 else
-    active_system=/media/system1
-    inactive_system=/media/system0
+	active_system=/media/system1
+	inactive_system=/media/system0
 fi
 
 # Set active/inactive system
@@ -42,6 +42,15 @@ ln -s $inactive_system /media/inactive_system
 
 # Set hostname
 hostname -F /etc/hostname
+
+# Link modules from /media/system/lib/modules/... to /lib/modules/...
+MODPATH=lib/modules/$(uname -r)
+mkdir -p /$MODPATH
+for i in /media/system/$MODPATH/* ;do
+	# Ignore dangling symlinks (if any).
+	[ ! -f "$i" ] && continue
+	ln -s $i /$MODPATH/$(basename $i)
+done
 
 # Create modules.* files in /lib/modules/...
 depmod
@@ -102,51 +111,51 @@ echo "++ Running all startup scripts"
 # Modules
 for i in /etc/init.d/M??* ;do
 
-     # Ignore dangling symlinks (if any).
-     [ ! -f "$i" ] && continue
+	 # Ignore dangling symlinks (if any).
+	 [ ! -f "$i" ] && continue
 
-     case "$i" in
-        *.sh)
-            # Source shell script for speed.
-            (
-                trap - INT QUIT TSTP
-                set insert
-                . $i
-            )
-            ;;
-        *)
-            # No sh extension, so fork subprocess.
-            $i insert
-            ;;
-    esac
+	 case "$i" in
+		*.sh)
+			# Source shell script for speed.
+			(
+				trap - INT QUIT TSTP
+				set insert
+				. $i
+			)
+			;;
+		*)
+			# No sh extension, so fork subprocess.
+			$i insert
+			;;
+	esac
 done
 
 # Synchronuous scripts in order
 for i in /etc/init.d/S??* ;do
 
-     # Ignore dangling symlinks (if any).
-     [ ! -f "$i" ] && continue
+	 # Ignore dangling symlinks (if any).
+	 [ ! -f "$i" ] && continue
 
-     case "$i" in
-        *.sh)
-            # Source shell script for speed.
-            (
-                trap - INT QUIT TSTP
-                set start
-                . $i
-            )
-            ;;
-        *)
-            # No sh extension, so fork subprocess.
-            $i start
-            ;;
-    esac
+	 case "$i" in
+		*.sh)
+			# Source shell script for speed.
+			(
+				trap - INT QUIT TSTP
+				set start
+				. $i
+			)
+			;;
+		*)
+			# No sh extension, so fork subprocess.
+			$i start
+			;;
+	esac
 done
 
 # Asynchronous scripts without order
 #
 for i in /etc/init.d/A* ;do
-	
+
 	# Ignore dangling symlinks (if any).
 	[ ! -f "$i" ] && continue
 
