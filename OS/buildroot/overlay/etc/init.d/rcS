@@ -164,7 +164,7 @@ for i in /etc/init.d/A* ;do
 			nohup sh -c "sleep 30; $i start" > /dev/null &
 			;;
 		*)
-			nohup sh $i start > /dev/null &
+			nohup time sh $i start > /tmp/$(basename $i).log &
 			;;
 	esac
 done
