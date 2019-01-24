@@ -52,7 +52,7 @@ case "$1" in
 
 			if [ -e /media/config/etc/network/wpa_supplicant.conf ]
 			then
-			sleep 1; # Allow some time for the USB WiFi device to be detected.
+			#sleep 1; # Allow some time for the USB WiFi device to be detected.
 			ifup wlan0
 			fi
 		}
@@ -60,11 +60,11 @@ case "$1" in
 		# 1000Base-T Ethernet
 		echo "++ Bringing up eth0"
 		# Built-in ethernet (DHCP)
-		ifup eth0
+		nohup ifup eth0 > /tmp/eth0.log &
 		# Built-in ethernet (Static IP)
-		ifup eth0:0
+		nohup ifup eth0:0 > /tmp/eth0-0.log &
 		# USB-ethernet adapter (DHCP)
-		ifup eth1
+		nohup ifup eth1 > /tmp/eth1.log &
 
 		# Set-up NAT & routing in Wifi AP mode case
 		[ "x$WIFI" == "xap" ] && {
