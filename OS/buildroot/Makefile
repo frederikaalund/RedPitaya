@@ -6,7 +6,7 @@
 
 # Where to get buildroot & which version
 B_SERVER=http://buildroot.uclibc.org/downloads
-B_VERSION=2018.08
+B_VERSION=2018.11.1
 B_DIR=buildroot-$(B_VERSION)
 #B_DIR=buildroot
 B_ARCHIVE=$(B_DIR).tar.gz

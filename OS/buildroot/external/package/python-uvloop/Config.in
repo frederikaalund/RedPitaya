@@ -1,8 +1,0 @@
-config BR2_PACKAGE_PYTHON_UVLOOP
-	bool "python-uvloop"
-	select BR2_PACKAGE_LIBUV
-	help
-	  Ultra fast implementation of asyncio event loop on top of libuv.
-
-	  https://github.com/MagicStack/uvloop
-
