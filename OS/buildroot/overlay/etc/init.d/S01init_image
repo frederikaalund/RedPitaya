@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ -r /etc/default/S01init_image ]
+then
+	. /etc/default/S01init_image
+else
+    echo "/etc/default/S01init_image not found."
+fi
+
+# The 'q' key quits fbv right after the image has been drawn to the
+# framebuffer.
+echo q | fbv /srv/init.bmp
+# Turn on the backlight
+echo out > /sys/class/gpio/DIO2_N/direction
+echo 1 > /sys/class/gpio/DIO2_N/value
