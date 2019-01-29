@@ -53,6 +53,7 @@ install: $(UIMAGE)
 install-remote: install
 	ssh $(HOST) "/bin/mount -o rw,remount \$$(readlink /media/system)"
 	scp uramdisk.image.gz $(HOST):/boot
+	ssh $(HOST) "/bin/mount -o ro,remount \$$(readlink /media/system)"
 
 clean:
 	-$(MAKE) -C $(B_DIR) clean
