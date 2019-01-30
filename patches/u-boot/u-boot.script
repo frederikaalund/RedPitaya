@@ -22,6 +22,7 @@ fatload mmc 0:$active_partition 0x3000000 boot/uramdisk.image.gz
 fatload mmc 0:$active_partition 0x6000000 boot/devicetree.dtb
 
 echo "Booting Linux kernel with ramdisk and devicetree"
+setenv initrd_high 0xFFFFFFFF
 setenv sdboot bootm 0x2001000 0x3000000 0x6000000
 setenv bootdelay 0
 bootd
