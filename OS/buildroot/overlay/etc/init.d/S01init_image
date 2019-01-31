@@ -9,7 +9,7 @@ fi
 
 # The 'q' key quits fbv right after the image has been drawn to the
 # framebuffer.
-echo q | fbv /srv/init.bmp
+echo q | fbv /etc/graphics/init.png
 # Turn on the backlight
 echo out > /sys/class/gpio/DIO2_N/direction
 echo 1 > /sys/class/gpio/DIO2_N/value
