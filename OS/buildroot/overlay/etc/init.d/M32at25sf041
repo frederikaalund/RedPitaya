@@ -1,0 +1,30 @@
+#!/bin/sh
+if [ -r /etc/default/rcS ]
+then
+    . /etc/default/rcS
+else
+    echo "/etc/default/rcS not found."
+fi
+
+MODULE="at25sf041.ko"
+
+case "$1" in
+	insert)
+		echo "Inserting at25sf041..."
+		modprobe $MODULE
+		echo "Inserted at25sf041"
+		;;
+	remove)
+		echo "Removing at25sf041..."
+		modprobe -r $MODULE
+		echo "Removed at25sf041..."
+		;;
+	reinsert)
+		$0 remove
+		$0 insert
+		;;
+	*)
+		echo "usage: $0 {insert|remove|reinsert}"
+		;;
+esac
+
