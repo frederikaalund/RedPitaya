@@ -50,6 +50,12 @@ check process mester
         stop program  = "/etc/init.d/Amester stop"
         if failed host localhost port 8082 within 2 cycles then restart
 
+check process cellmate
+        matching "python.*cellmate"
+        start program = "/etc/init.d/Acellmate start"
+        stop program  = "/etc/init.d/Acellmate stop"
+        if failed host localhost port 8082 within 2 cycles then restart
+
 check process dash
         matching "python.*dash"
         start program = "/etc/init.d/Adash start"
