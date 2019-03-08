@@ -17,7 +17,6 @@ SBTOS_VERSION=$(GIT_DESCRIPTION:v%=%)
 OSRELEASE=overlay/etc/os-release
 
 INSTALL_DIR ?= .
-HOST ?= sensor-dev-1
 
 all: $(UIMAGE)
 
@@ -50,10 +49,10 @@ install: $(UIMAGE)
 	mkdir -p $(INSTALL_DIR)
 	cp $(UIMAGE) $(INSTALL_DIR)/uramdisk.image.gz
 
-install-remote: install
-	ssh $(HOST) "/bin/mount -o rw,remount \$$(readlink /media/system)"
-	scp uramdisk.image.gz $(HOST):/boot
-	ssh $(HOST) "/bin/mount -o ro,remount \$$(readlink /media/system)"
+install-remote: remote_host_defined install
+	ssh $(remote_host) "/bin/mount -o rw,remount \$$(readlink /media/system)"
+	scp uramdisk.image.gz $(remote_host):/boot
+	ssh $(remote_host) "/bin/mount -o ro,remount \$$(readlink /media/system)"
 
 clean:
 	-$(MAKE) -C $(B_DIR) clean
@@ -74,3 +73,8 @@ $(OSRELEASE):
 
 .PHONY: clean mrproper $(OSRELEASE)
 
+.PHONY: remote_host_defined
+remote_host_defined:
+ifndef remote_host
+	$(error remote_host is not set)
+endif
